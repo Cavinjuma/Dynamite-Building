@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamite Building</title>
+    <link href="DynamiteProfile.png" rel="icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+  <style>
+    
+    :root{
+      --bg:#f8fafc; /* light background */
+      --card:#ffffff;
+      --muted:#666;
+      --accent:#0077b6;
+      --accent-light:#00b4d8;
+      --shadow:rgba(0,0,0,0.08);
+      --radius:14px;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color:#222;
+      padding:32px;
+      line-height:1.6;
+    }
+
+    .wrap{max-width:1200px;margin:0 auto}
+
+    .hero{
+      background: var(--card);
+      border-radius:var(--radius);
+      padding:18px;
+      display:grid;
+      grid-template-columns: 1fr auto;
+      gap:18px;
+      align-items:center;
+      box-shadow: 0 4px 20px var(--shadow);
+    }
+
+    .hero .video-frame{
+      width:100%;
+      border-radius:12px;
+      overflow:hidden;
+      background:#000;
+    }
+    video{width:100%;max-height:360px;object-fit:cover;border:none}
+
+    .hero .info h1{
+      font-size:22px;
+      color:var(--accent);
+      margin-bottom:6px;
+    }
+    .hero .info p{
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .gallery{
+      margin-top:24px;
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:16px;
+    }
+
+    .tile{
+      position:relative;
+      border-radius:12px;
+      overflow:hidden;
+      background:var(--card);
+      box-shadow:0 4px 16px var(--shadow);
+      cursor:pointer;
+      transition:transform .3s ease, box-shadow .3s ease;
+    }
+
+    .tile:hover{
+      transform:translateY(-6px);
+      box-shadow:0 8px 25px rgba(0,0,0,0.1);
+    }
+
+    .tile img{
+      width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease;
+    }
+    .tile:hover img{transform:scale(1.05)}
+
+    .caption{
+      position:absolute;bottom:0;left:0;right:0;padding:10px 12px;background:linear-gradient(180deg,rgba(0,0,0,0)0%,rgba(0,0,0,0.6)100%);
+      color:#fff;font-size:14px;display:flex;justify-content:space-between;align-items:center;
+    }
+
+    .badge{
+      background:var(--accent-light);
+      color:#fff;
+      padding:4px 8px;
+      border-radius:999px;
+      font-size:12px;
+    }
+
+    .lightbox{
+      position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:32px;z-index:60;background:rgba(0,0,0,0.6);
+    }
+    .lightbox.open{display:flex}
+
+    .viewer{
+      max-width:1100px;width:100%;max-height:90vh;border-radius:14px;overflow:hidden;display:grid;grid-template-columns:1fr 320px;background:var(--card);
+      box-shadow:0 20px 80px rgba(0,0,0,0.3);
+    }
+
+    .viewer img{width:100%;height:100%;object-fit:contain;background:#000}
+
+    .side{padding:18px;color:var(--muted);font-size:14px;display:flex;flex-direction:column;gap:12px;}
+
+    .btn{background:var(--accent);color:#fff;border:none;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:600;transition:background .3s}
+    .btn:hover{background:var(--accent-light)}
+
+    .controls{display:flex;gap:8px}
+    .close{margin-left:auto;background:#e63946;}
+    .close:hover{background:#ff4d4d}
+
+    footer{margin-top:20px;color:var(--muted);font-size:13px;text-align:center}
+
+    @media (max-width:1000px){
+      .gallery{grid-template-columns:repeat(2,1fr)}
+      .viewer{grid-template-columns:1fr 260px}
+    }
+
+    @media (max-width:640px){
+      body{padding:18px}
+      .hero{grid-template-columns:1fr}
+      .gallery{grid-template-columns:1fr}
+      .viewer{grid-template-columns:1fr}
+      .side{display:none}
+    }
+  </style>
+</head>
+<body><nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container">
+          <a class="navbar-brand" href="index.html"><span class="text-warning"><u>Dynamite</span>Building</u></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+              
+              <li class="nav-item">
+                <a class="nav-link" href="index.html">Home</a>
+              </li>
+
+              
+              <li class="nav-item">
+                <a class="nav-link" href="gallery.html">Our Gallery</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="index.html#about">About</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="index.html#services">Services</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="index.html#portfolio">Portfolio</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="index.html#team">Reviews</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="index.html#contact">Contact</a>
+              </li>
+
+              
+            </ul>
+            
+          </div>
+          <marquee direction="left">Dynamite Building</br><span class="text-warning"><em>Let's Build Quality as it lasts..</em></span></marquee>
+       
+        </div>
+      </nav>
+      
+  <div class="wrap">
+    <div class="hero" aria-hidden="false">
+      <div class="video-frame" title="Intro video">
+        <!-- Replace the src with your video file or a hosted MP4 -->
+        <video id="headerVideo" controls playsinline poster="">
+          <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <div class="info">
+      <h1><u><span class="text-warning">Dynamite</span> Building</u></h1>
+        <h1>Gallery Showcase</h1>
+        <p class="lead">Click any image to open the lightbox. Use ← and → to navigate or press Esc to close. Designed to look great on desktop and mobile.</p>
+      </div>
+    </div>
+
+    <div class="gallery" id="gallery" aria-label="Image gallery">
+      <!-- sample images: replace URLs with your images -->
+      <div class="tile" tabindex="0" data-index="0" data-caption="Sunset over the hills">
+        <img src="im1.jpg" alt="Sunset over hills">
+        <div class="caption"><span>Sunset</span><span class="badge">Nature</span></div>
+      </div>
+
+      <div class="tile" tabindex="0" data-index="1" data-caption="Calm lake reflection">
+        <img src="im2.jpg" alt="Lake reflection">
+        <div class="caption"><span>Lake</span><span class="badge">Water</span></div>
+      </div>
+
+      <div class="tile" tabindex="0" data-index="2" data-caption="City skyline at night">
+        <img src="im3.jpg" alt="City skyline">
+        <div class="caption"><span>City</span><span class="badge">Urban</span></div>
+      </div>
+
+      <div class="tile" tabindex="0" data-index="3" data-caption="Misty forest path">
+        <img src="im4.jpg" alt="Forest path">
+        <div class="caption"><span>Forest</span><span class="badge">Nature</span></div>
+      </div>
+
+      <div class="tile" tabindex="0" data-index="4" data-caption="Desert dunes and sky">
+        <img src="im6.jpg" alt="Desert dunes">
+        <div class="caption"><span>Desert</span><span class="badge">Landscape</span></div>
+      </div>
+
+      <div class="tile" tabindex="0" data-index="5" data-caption="Coastal cliffs and waves">
+        <img src="im7.jpg" alt="Coastal cliffs">
+        <div class="caption"><span>Coast</span><span class="badge">Sea</span></div>
+      </div>
+
+      <!-- Add more tiles as needed -->
+    </div>
+
+    <footer><b>Dynamite Building</b>; where quality lasts</footer>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="viewer" role="document">
+      <div class="image-wrap">
+        <img id="lbImage" src="" alt="" />
+      </div>
+      <div class="side">
+        <div style="display:flex;gap:8px;align-items:center">
+          <div class="controls">
+            <button class="btn nav-btn" id="prevBtn" title="Previous (Left arrow)">◀</button>
+            <button class="btn nav-btn" id="nextBtn" title="Next (Right arrow)">▶</button>
+          </div>
+          <div style="flex:1"></div>
+          <button class="btn close" id="closeBtn" title="Close (Esc)">✕</button>
+        </div>
+
+        <div id="lbCaption" style="font-weight:600;color:#e8f6ee"></div>
+        <div id="lbMeta" style="font-size:13px;color:var(--muted)"></div>
+
+        <div style="margin-top:auto">
+          <button class="btn" id="downloadBtn">Download</button>
+          <button class="btn" id="openNewBtn">Open in new tab</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      const tiles = Array.from(document.querySelectorAll('.tile'));
+      const lightbox = document.getElementById('lightbox');
+      const lbImage = document.getElementById('lbImage');
+      const lbCaption = document.getElementById('lbCaption');
+      const lbMeta = document.getElementById('lbMeta');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const closeBtn = document.getElementById('closeBtn');
+      const downloadBtn = document.getElementById('downloadBtn');
+      const openNewBtn = document.getElementById('openNewBtn');
+      let current = 0;
+
+      function openAt(index){
+        const tile = tiles[index];
+        const img = tile.querySelector('img');
+        lbImage.src = img.src;
+        lbImage.alt = img.alt || '';
+        lbCaption.textContent = tile.dataset.caption || img.alt || '';
+        lbMeta.textContent = `Image ${index+1} of ${tiles.length}`;
+        current = index;
+        lightbox.classList.add('open');
+        lightbox.setAttribute('aria-hidden','false');
+        // Focus trap: focus close button
+        closeBtn.focus();
+      }
+
+      function closeLB(){
+        lightbox.classList.remove('open');
+        lightbox.setAttribute('aria-hidden','true');
+        lbImage.src = '';
+      }
+
+      tiles.forEach((t,i)=>{
+        t.addEventListener('click',()=>openAt(i));
+        t.addEventListener('keydown', (ev)=>{
+          if(ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); openAt(i); }
+        });
+      });
+
+      prevBtn.addEventListener('click', ()=>{ openAt((current-1+tiles.length)%tiles.length); });
+      nextBtn.addEventListener('click', ()=>{ openAt((current+1)%tiles.length); });
+      closeBtn.addEventListener('click', closeLB);
+
+      downloadBtn.addEventListener('click', ()=>{
+        if(!lbImage.src) return;
+        const a = document.createElement('a');
+        a.href = lbImage.src;
+        a.download = `image-${current+1}.jpg`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      });
+
+      openNewBtn.addEventListener('click', ()=>{ if(lbImage.src) window.open(lbImage.src, '_blank'); });
+
+      // close when clicking outside image area
+      lightbox.addEventListener('click', (e)=>{
+        if(e.target === lightbox) closeLB();
+      });
+
+      // keyboard navigation
+      document.addEventListener('keydown', (e)=>{
+        if(!lightbox.classList.contains('open')) return;
+        if(e.key === 'ArrowLeft') prevBtn.click();
+        if(e.key === 'ArrowRight') nextBtn.click();
+        if(e.key === 'Escape') closeLB();
+      });
+
+      // prefetch images for smoother navigation
+      tiles.forEach(t=>{
+        const img = new Image(); img.src = t.querySelector('img').src;
+      });
+
+      // small accessibility tweak: pause video when opening lightbox
+      const headerVideo = document.getElementById('headerVideo');
+      const observer = new MutationObserver(()=>{
+        if(lightbox.classList.contains('open')){
+          try{ headerVideo.pause(); }catch(e){}
+        }
+      });
+      observer.observe(lightbox, {attributes:true,attributeFilter:['class']});
+
+    })();
+  </script>
+</body>
+</html>
